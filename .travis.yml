@@ -14,7 +14,7 @@ after_success:
   - docker build -t admiralicic/multi-server ./server
   - docker build -t admiralicic/multi-worker ./worker
 
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --pasword-stdin docker.io
+  - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_ID" --pasword-stdin docker.io
 
   - docker push admiralicic/multi-client
   - docker push admiralicic/multi-nginx

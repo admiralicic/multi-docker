@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t admiralicic/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true USERNAME/react-test npm test
+
+after_success:
+  - docker build -t admiralicic/multi-client ./client
+  - docker build -t admiralicic/multi-nginx ./nginx
+  - docker build -t admiralicic/multi-server ./server
+  - docker build -t admiralicic/multi-worker ./worker
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --pasword-stdin
+
+  - docker push admiralicic/multi-client
+  - docker push admiralicic/multi-nginx
+  - docker push admiralicic/multi-server
+  - docker push admiralicic/multi-worker

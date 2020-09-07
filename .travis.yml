@@ -13,9 +13,7 @@ after_success:
   - docker build -t admiralicic/multi-nginx ./nginx
   - docker build -t admiralicic/multi-server ./server
   - docker build -t admiralicic/multi-worker ./worker
-
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --pasword-stdin
-
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push admiralicic/multi-client
   - docker push admiralicic/multi-nginx
   - docker push admiralicic/multi-server
